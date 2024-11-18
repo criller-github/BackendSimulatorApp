@@ -14,4 +14,4 @@ db.catTexts = require("./catText.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 
-//test :)
+//test
