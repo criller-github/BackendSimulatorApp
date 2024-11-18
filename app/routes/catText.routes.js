@@ -1,25 +1,27 @@
-module.exports = app => {
-    const catTexts = require("../controllers/catText.controller.js");
+//her definerer vi API-endpoints, der matcher vores CRUD-funktioner i controlleren
+
+module.exports = (app) => {
+    const cattexts = require("../controllers/catText.controller.js");
   
     var router = require("express").Router();
   
     // Create a new catText
-    router.post("/", catTexts.create);
+    router.post("/", cattexts.create);
   
     // Retrieve all catTexts
-    router.get("/", catTexts.findAll);
+    router.get("/", cattexts.findAll);
   
     // Retrieve a single catText with id
-    router.get("/:id", catTexts.findOne);
+    router.get("/:id", cattexts.findOne);
   
     // Update a catText with id
-    router.put("/:id", catTexts.update);
+    router.put("/:id", cattexts.update);
   
     // Delete a cattet with id
-    router.delete("/:id", catTexts.delete);
+    router.delete("/:id", cattexts.delete);
   
     // Create a new cattext
-    router.delete("/", catTexts.deleteAll);
+    router.delete("/", cattexts.deleteAll);
   
-    app.use('/api/catTexts', router);
+    app.use('/api/cattexts', router);
   };

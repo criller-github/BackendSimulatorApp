@@ -1,3 +1,5 @@
+//her sørger vi for at registrere den nye CatText-model i vores databasekonfiguration
+
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize('katteapp', 'root', '', {
   host: "localhost",
@@ -10,7 +12,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.catTexts = require("./catText.model.js")(sequelize, Sequelize);
+db.cattexts = require("./cattext.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

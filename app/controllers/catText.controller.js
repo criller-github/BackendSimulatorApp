@@ -1,3 +1,6 @@
+//her gøres der brug af CRUD-funktioner til vores CatText-model.
+
+
 const db = require("../models");
 const CatText = db.cattexts;
 const Op = db.Sequelize.Op;
@@ -14,7 +17,7 @@ exports.create = (req, res) => {
 
   // Create a cat text
   const catText = {
-    image_id: req.body.image_name,
+    image_name: req.body.image_name,
     text: req.body.text,
   };
 
@@ -33,20 +36,19 @@ exports.create = (req, res) => {
 
 // Retrieve all cattext from the database.
 exports.findAll = (req, res) => {
-    const image_name = req.query.image_name;
-    var condition = image_name ? { image_name: { [Op.like]: `%${image_name}%` } } : null;
-  
-    CatText.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "der opstod en fejl ved hentning af teksterne"
-        });
+  const image_name = req.query.image_name;
+  var condition = image_name ? { image_name: { [Op.like]: `%${image_name}%` } } : null;
+
+  CatText.findAll({ where: condition })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Der opstod en fejl under hentning af CatTexts.",
       });
-  
+    });
 };
 
 // Find a single cat text with an id
@@ -73,28 +75,27 @@ exports.findOne = (req, res) => {
 
 // Update a cattext by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    CatText.update(req.body, {
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "CatText blev opdateret succesfuldt"
-          });
-        } else {
-          res.send({
-            message: `Kan ikke opdatere CatText med id=${id}. Måske blev CatText ikke fundet eller req.body er tom`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Fejl ved opdatering af CatText med id=" + id
+  CatText.update(req.body, {
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "CatText blev opdateret succesfuldt.",
         });
+      } else {
+        res.send({
+          message: `Kan ikke opdatere CatText med id=${id}. Måske blev CatText ikke fundet eller req.body er tom!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Fejl ved opdatering af CatText med id=" + id,
       });
-  
+    });
 };
 
 // Delete a Tutorial with the specified id in the request
@@ -135,7 +136,7 @@ exports.deleteAll = (req, res) => {
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Der opstod en fejl under sletning af alle CatTexts"
+              err.message || "Der opstod en fejl under sletning af alle CatTexts",
           });
         });
     
