@@ -10,7 +10,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+db.catTexts = require("./catText.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 

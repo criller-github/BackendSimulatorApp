@@ -13,14 +13,14 @@ exports.create = (req, res) => {
   }
 
   // Create a Tutorial
-  const tutorial = {
+  const catText = {
     title: req.body.title,
     description: req.body.description,
     published: req.body.published ? req.body.published : false
   };
 
   // Save Tutorial in the database
-  Tutorial.create(tutorial)
+  CatText.create(catText)
     .then(data => {
       res.send(data);
     })
@@ -37,7 +37,7 @@ exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   
-    Tutorial.findAll({ where: condition })
+    CatText.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
@@ -54,7 +54,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.findByPk(id)
+    CatText.findByPk(id)
       .then(data => {
         res.send(data);
       })
@@ -70,7 +70,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.update(req.body, {
+    CatText.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -96,7 +96,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.destroy({
+    CatText.destroy({
       where: { id: id }
     })
       .then(num => {
@@ -120,7 +120,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
+  CatText.destroy({
         where: {},
         truncate: false
       })
@@ -138,7 +138,7 @@ exports.deleteAll = (req, res) => {
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-    Tutorial.findAll({ where: { published: true } })
+  CatText.findAll({ where: { published: true } })
     .then(data => {
       res.send(data);
     })
