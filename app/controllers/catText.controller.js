@@ -1,12 +1,11 @@
-const { text } = require("body-parser");
 const db = require("../models");
-const Tutorial = db.tutorials;
+const CatText = db.cattexts;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new cat text
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.image_id || !req.body.text) {
+  if (!req.body.image_name || !req.body.text) {
     res.status(400).send({
       message: "indholdet kan ikke være tomt!" 
     });
@@ -15,7 +14,7 @@ exports.create = (req, res) => {
 
   // Create a cat text
   const catText = {
-    image_id: req.body.image_id,
+    image_id: req.body.image_name,
     text: req.body.text,
   };
 
@@ -34,8 +33,8 @@ exports.create = (req, res) => {
 
 // Retrieve all cattext from the database.
 exports.findAll = (req, res) => {
-    const image_id = req.query.image_id;
-    var condition = image_id ? { image_id: { [Op.like]: `%${image_id}%` } } : null;
+    const image_name = req.query.image_name;
+    var condition = image_name ? { image_name: { [Op.like]: `%${image_name}%` } } : null;
   
     CatText.findAll({ where: condition })
       .then(data => {
@@ -50,7 +49,7 @@ exports.findAll = (req, res) => {
   
 };
 
-// Find a single Tutorial with an id
+// Find a single cat text with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
