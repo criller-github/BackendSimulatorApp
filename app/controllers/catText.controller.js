@@ -1,25 +1,25 @@
+const { text } = require("body-parser");
 const db = require("../models");
 const Tutorial = db.tutorials;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new cat text
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.image_id || !req.body.text) {
     res.status(400).send({
-      message: "Content can not be empty!" 
+      message: "indholdet kan ikke være tomt!" 
     });
     return;
   }
 
-  // Create a Tutorial
+  // Create a cat text
   const catText = {
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    image_id: req.body.image_id,
+    text: req.body.text,
   };
 
-  // Save Tutorial in the database
+  // Save cat text in the database
   CatText.create(catText)
     .then(data => {
       res.send(data);
@@ -27,15 +27,15 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "der opstod en fejl ved oprettelse af teksten"
       });
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all cattext from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    const image_id = req.query.image_id;
+    var condition = image_id ? { image_id: { [Op.like]: `%${image_id}%` } } : null;
   
     CatText.findAll({ where: condition })
       .then(data => {
@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "der opstod en fejl ved hentning af teksterne"
         });
       });
   
@@ -56,17 +56,23 @@ exports.findOne = (req, res) => {
 
     CatText.findByPk(id)
       .then(data => {
-        res.send(data);
+        if (data) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            message: `Kan ikke finde CatText med id=${id}.`
+          });
+        }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Tutorial with id=" + id
+          message: "Fejl ved hentning af CatText med id=" + id
         });
       });
   
 };
 
-// Update a Tutorial by the id in the request
+// Update a cattext by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
@@ -76,17 +82,17 @@ exports.update = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was updated successfully."
+            message: "CatText blev opdateret succesfuldt"
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Kan ikke opdatere CatText med id=${id}. Måske blev CatText ikke fundet eller req.body er tom`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + id
+          message: "Fejl ved opdatering af CatText med id=" + id
         });
       });
   
@@ -102,51 +108,36 @@ exports.delete = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was deleted successfully!"
+            message: "CatText blev slettet succesfuldt"
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+            message: `Kan ikke slette CatText med id=${id}. Måske blev CatText ikke fundet!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
+          message: "Kunne ikke slette CatText med id=" + id
         });
       });
   
 };
 
-// Delete all Tutorials from the database.
+// Delete all Tutorials from the database. /skal måske slette/
 exports.deleteAll = (req, res) => {
   CatText.destroy({
         where: {},
         truncate: false
       })
         .then(nums => {
-          res.send({ message: `${nums} Tutorials were deleted successfully!` });
+          res.send({ message: `${nums} CatTexts blev slettet succesfuldt!` });
         })
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while removing all tutorials."
+              err.message || "Der opstod en fejl under sletning af alle CatTexts"
           });
         });
     
-};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-  CatText.findAll({ where: { published: true } })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
-    });
-
 };
