@@ -14,4 +14,4 @@ db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
 
 module.exports = db;
 
-//test
+//test :)
