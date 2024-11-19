@@ -1,43 +1,43 @@
 //her gøres der brug af CRUD-funktioner til vores CatText-model.
 
 
-const db = require("../models");
+const db = require('../models');
 const CatText = db.cattexts;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new cat text
+// Opret og gem en ny CatText
 exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.image_name || !req.body.text) {
+  // Valider anmodningen
+  if (!req.body.image_id || !req.body.text) {
     res.status(400).send({
-      message: "indholdet kan ikke være tomt!" 
+      message: "Indhold kan ikke være tomt!",
     });
     return;
   }
 
-  // Create a cat text
+  // Opret en CatText
   const catText = {
-    image_name: req.body.image_name,
+    image_id: req.body.image_id,
     text: req.body.text,
   };
 
-  // Save cat text in the database
+  // Gem i databasen
   CatText.create(catText)
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "der opstod en fejl ved oprettelse af teksten"
+          err.message || "Der opstod en fejl under oprettelsen af CatText.",
       });
     });
 };
 
-// Retrieve all cattext from the database.
+// Hent alle CatTexts
 exports.findAll = (req, res) => {
-  const image_name = req.query.image_name;
-  var condition = image_name ? { image_name: { [Op.like]: `%${image_name}%` } } : null;
+  const image_id = req.query.image_id;
+  var condition = image_id ? { image_id: { [Op.like]: `%${image_id}%` } } : null;
 
   CatText.findAll({ where: condition })
     .then((data) => {

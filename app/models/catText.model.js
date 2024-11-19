@@ -1,6 +1,7 @@
 //catText er en model der repræsenterer kattebillederne og den tilhørende tekst
 
-const { all } = require("sequelize/types/lib/operators");
+const Sequelize = require('sequelize');
+const { Op } = Sequelize;
 
 module.exports = (sequelize, Sequelize) => {
     const CatText = sequelize.define("cattext", {

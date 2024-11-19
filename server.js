@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 // Inkluder ruterne
-require("./app/routers/cattext.routers.js")(app);
+require("./app/routes/catText.routes.js")(app);
 
 // Sæt porten og lyt til anmodninger
 const PORT = process.env.PORT || 8080;
