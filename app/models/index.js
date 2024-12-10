@@ -21,6 +21,7 @@ db.sequelize = sequelize;
 //Initialiserer modellen med sequelize (forbindelsen) og Sequelize (ORM-funktioner)
 //Gemmer modellen i db.cattexts, så den kan bruges i resten af applikationen
 db.cattexts = require("./cattext.model.js")(sequelize, Sequelize);
+db.shopitems = require("./shopitem.model.js")(sequelize, Sequelize);
 
 // Eksporterer db-objektet, så det kan bruges af andre moduler, fx i routes eller controllers
 module.exports = db;

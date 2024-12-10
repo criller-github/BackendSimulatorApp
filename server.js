@@ -35,6 +35,8 @@ app.get("/", (req, res) => {
 // Importerer og registrerer ruterne fra catText.routes.js og gør dem tilgængelige via serveren
 //For eksempel vil en anmodning til http://localhost:8080/api/cattexts blive håndteret af denne fil
 require("./app/routes/catText.routes.js")(app);
+require("./app/routes/shopItem.routes.js")(app);
+
 
 // Angiver porten, som serveren skal lytte på
 //process.env.PORT: Bruges, hvis serveren kører i en cloud-environment, hvor porten kan være dynamisk
