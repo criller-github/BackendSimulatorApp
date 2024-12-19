@@ -4,10 +4,14 @@
 const Sequelize = require("sequelize");
 
 // Initialiser en Sequelize-instans med databaseforbindelse
-const sequelize = new Sequelize('bresson_portfolio_dk_db', 'root', '', {
-  host: "localhost", // Databaseværten, typisk localhost under udvikling
+const sequelize = new Sequelize(
+  process.env.DB_DATABASE,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
+  {
+  host: process.env.DB_HOST, // Databaseværten, typisk localhost under udvikling
   dialect: "mysql", // Angiver hvilken database der bruges (MySQL)
-  port: 3306 // Angiver hvilken port databasen lytter på
+  port: process.env.DB_PORT // Angiver hvilken port databasen lytter på
 });
 
 // Opretter et tomt objekt til at holde alle database-relaterede ressourcer som modeller og forbindelsesinstansen
