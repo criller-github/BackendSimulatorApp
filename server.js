@@ -11,7 +11,10 @@ const cors = require("cors");
 const app = express();
 
 //Aktiverer CORS, så serveren tillader anmodninger fra frontend'en, selv hvis de kører på forskellige domæner eller porte
-app.use(cors());
+app.use(cors({
+  origin: 'http://bresson-portfolio.dk/', // Tillad anmodninger fra denne URL
+  methods: ["GET", "POST", "PUT", "DELETE"], // Tillad nødvendige HTTP-metoder
+}));
 
 // Middleware, der gør det muligt for serveren at parse JSON-data i HTTP-forespørgsler
 app.use(express.json());
