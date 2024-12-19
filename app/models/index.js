@@ -4,7 +4,7 @@
 const Sequelize = require("sequelize");
 
 // Initialiser en Sequelize-instans med databaseforbindelse
-const sequelize = new Sequelize('katteapp', 'root', '', {
+const sequelize = new Sequelize('bresson_portfolio_dk_db', 'root', '', {
   host: "localhost", // Databaseværten, typisk localhost under udvikling
   dialect: "mysql", // Angiver hvilken database der bruges (MySQL)
   port: 3306 // Angiver hvilken port databasen lytter på
