@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
   {
   host: process.env.DB_HOST, // Databaseværten, typisk localhost under udvikling
   dialect: "mysql", // Angiver hvilken database der bruges (MySQL)
-  port: process.env.DB_PORT // Angiver hvilken port databasen lytter på
+  port: process.env.DB_PORT || 3306 
 });
 
 // Opretter et tomt objekt til at holde alle database-relaterede ressourcer som modeller og forbindelsesinstansen
