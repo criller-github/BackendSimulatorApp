@@ -1,7 +1,7 @@
 module.exports = (app) => {
     const shopitems = require("../controllers/shopItem.controller.js");
     var router = require("express").Router();
-  
+   
     router.post("/", shopitems.create);
     router.get("/", shopitems.findAll);
     router.get("/:id", shopitems.findOne);

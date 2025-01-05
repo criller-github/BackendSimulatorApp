@@ -3,7 +3,7 @@
 //Eksporterer en funktion, der tager app (Express-applikationen) som parameter. 
 //Dette giver os mulighed for at tilføje vores API-endpoints til Express-appen
 module.exports = (app) => {
-
+ 
     //Importerer controlleren, der indeholder de faktiske implementeringer af CRUD-logikken
     const cattexts = require("../controllers/catText.controller.js");
   
